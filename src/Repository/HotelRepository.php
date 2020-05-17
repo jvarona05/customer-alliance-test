@@ -18,4 +18,15 @@ class HotelRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Hotel::class);
     }
+
+    public function getAverage($hotelId)
+    {
+        return $this->createQueryBuilder('h')
+            ->select("avg(r.score) as avg")
+            ->join('h.reviews', 'r')
+            ->andWhere('h.id = :hotelId')
+            ->setParameter('hotelId', $hotelId)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

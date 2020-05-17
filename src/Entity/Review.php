@@ -3,12 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 use App\Entity\Hotel;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ReviewRepository")
  */
-class Review
+class Review implements JsonSerializable
 {
     /**
      * @ORM\Id()
@@ -37,6 +38,15 @@ class Review
      * @ORM\JoinColumn(name="hotel_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $hotel;
+
+    public function jsonSerialize() : array
+    {
+        return [
+            'id' => $this->id,
+            'comment' => $this->comment,
+            'score' => $this->score,
+        ];
+    }
 
     public function setId(int $id): self
     {

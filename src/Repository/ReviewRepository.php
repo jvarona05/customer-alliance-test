@@ -18,4 +18,16 @@ class ReviewRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Review::class);
     }
+
+    public function getReviews(int $countryId)
+    {
+        $query = $this->createQueryBuilder('r');
+
+        if(!$countryId){
+            $query->andWhere('h.hotel = :hotelId')
+                ->setParameter('hotelId', $hotelId);
+        }
+        
+        return $query->getQuery()->getResult();
+    }
 }
