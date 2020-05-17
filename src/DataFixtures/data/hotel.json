@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "name": "Hotel Alexanderplatz",
+        "address": "Alexanderplatz 1, 10409, Berlin",
+        "hotel-chain-id": 1
+    },
+    {
+        "id": 2,
+        "name": "Hotel NH Berlin Kurfürstendamm",
+        "address": "Grolmanstraße 41-43, 10623 Berlin, Germany",
+        "hotel-chain-id": 1
+    },
+    {
+        "id": 3,
+        "name": "Radisson Blu Hotel, Madrid Prado",
+        "address": "Calle de Moratín, 52, 28014 Madrid",
+        "hotel-chain-id": 2
+    },
+    {
+        "id": 4,
+        "name": "Radisson Blu Edwardian, Mercer Street",
+        "address": "20 Mercer St, West End, London WC2H 9HD, United Kingdom",
+        "hotel-chain-id": 2
+    },
+    {
+        "id": 5,
+        "name": "Dorint Hotel Frankfurt Oberursel",
+        "address": "Königsteiner Str. 29, 61440 Oberursel (Taunus), Germany",
+        "hotel-chain-id": 3
+    }
+]

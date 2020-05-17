@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "name": "NH Hotel Group",
+        "url": "https://www.nh-hotels.com/"
+    },
+    {
+        "id": 2,
+        "name": "Radisson Blu Hotels & Resorts",
+        "url": "https://www.radissonhotels.com/"
+    },
+    {
+        "id": 3,
+        "name": "Dorint Hotels & Resorts",
+        "url": "https://www.dorint.com/"
+    }
+]

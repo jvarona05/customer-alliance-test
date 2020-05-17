@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Hotel;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ReviewRepository")
@@ -30,6 +31,18 @@ class Review
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $comment;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Hotel", inversedBy="reviews")
+     * @ORM\JoinColumn(name="hotel_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $hotel;
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
 
     public function getId(): ?int
     {
@@ -70,6 +83,18 @@ class Review
     public function setComment(?string $comment): self
     {
         $this->comment = $comment;
+
+        return $this;
+    }
+
+    public function getHotel(): Hotel
+    {
+        return $this->hotel;
+    }
+    
+    public function setHotel($hotel): self
+    {
+        $this->hotel = $hotel; 
 
         return $this;
     }
