@@ -46,4 +46,14 @@ class HotelController extends AbstractController
 
         return new JsonResponse($reviews);
     }
+
+    /**
+     * @Route("", name="api_get_hotel_list")
+     */
+    public function getHotels(Request $request)
+    {
+        $hotels = $this->getDoctrine()->getRepository(Hotel::class)->findAll();
+
+        return new JsonResponse($hotels);
+    }
 }

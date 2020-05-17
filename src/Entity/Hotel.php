@@ -4,11 +4,12 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use JsonSerializable;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\HotelRepository")
  */
-class Hotel
+class Hotel implements JsonSerializable
 {
     /**
      * @ORM\Id()
@@ -52,6 +53,15 @@ class Hotel
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
+    }
+
+    public function jsonSerialize() : array
+    {
+        return [
+            'uuid' => $this->uuid,
+            'name' => $this->name,
+            'address' => $this->address,
+        ];
     }
 
     public function getId(): ?int

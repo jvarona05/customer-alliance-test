@@ -3,9 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JsonSerializable;
 use App\Entity\Hotel;
-
+use JsonSerializable;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ReviewRepository")
  */
