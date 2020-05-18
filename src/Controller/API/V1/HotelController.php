@@ -37,8 +37,7 @@ class HotelController extends AbstractController
      */
     public function getAverage(Hotel $hotel)
     {
-        $average = $this->getDoctrine()->getRepository(Review::class)
-            ->getAverage($hotel); 
+        $average = $this->hotelService->getAverage($hotel);
 
         return new JsonResponse(compact('average'));
     }

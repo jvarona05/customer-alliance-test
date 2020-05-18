@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Contracts\Cache\ItemInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Services\Paginator;
 use App\Entity\Review;
@@ -39,5 +41,20 @@ class HotelService
         }
 
         return $reviews;
+    }
+
+    public function getAverage(Hotel $hotel)
+    {
+        $cache = new FilesystemAdapter();
+
+        $reviewRepository = $this->em->getRepository(Review::class);
+
+        $average = $cache->get("hotel_average_{$hotel->getUuid()}", function (ItemInterface $item) use ($reviewRepository, $hotel) {
+            $item->expiresAfter(3600);
+        
+            return $reviewRepository->getAverage($hotel);
+        });
+
+        return $average;
     }
 }
