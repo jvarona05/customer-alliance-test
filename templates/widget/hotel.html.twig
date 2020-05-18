@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="{{ asset('asset/widget.css') }}">
+</head>
+<body>
+	<h1>Customer Alliance<h1>
+	<p>Rate:<span id="average"></span></p>
+	<ul id="reviews">
+		<li></li>
+		<li></li>
+	</ul>	
+
+	<script type="text/javascript">
+		function ajaxReques(url, payload)
+		{
+			var xhr = new XMLHttpRequest();
+
+			xhr.onload = function () {
+				if (xhr.status >= 200 && xhr.status < 300) {
+					response = JSON.parse(xhr.response)
+					payload(response)
+				} else {
+					console.log('The request failed!');
+				}
+			};
+
+			xhr.open('GET', url);
+			xhr.setRequestHeader('Accept', 'application/json'); 
+			xhr.send();
+		}
+
+		function renderReviewList(reviews){
+			var html = ''
+
+			for (let i = 0; i < reviews.length; i++)
+			{
+				html += `<li>${reviews[i].score} - ${reviews[i].comment}</li>`
+			}
+
+			document.getElementById('reviews').innerHTML = html
+		}
+
+		ajaxReques('http://localhost/api/v1/hotels/average?hotelId=1', function(response){
+			document.getElementById('average').textContent = response.average;
+		})
+
+		ajaxReques('http://localhost/api/v1/hotels/reviews?hotelId=1', function(response){
+			console.log(response)
+			renderReviewList(response);
+		})
+		
+		//console.log('AVERAGE:', average)
+	</script>
+</body>
+</html>

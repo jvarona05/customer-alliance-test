@@ -28,6 +28,7 @@ class HotelController extends AbstractController
     }
 
     /**
+     * NOTE poner que el url sea /{id}/average
      * @Route("average", name="api_get_hotel_average")
      */
     public function getAverage(Request $request, HotelService $hotelService)

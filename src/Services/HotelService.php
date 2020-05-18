@@ -19,6 +19,6 @@ class HotelService
         if (!$this->hotelRepository->find($hotelId)) 
             throw new \Exception('Hotel not found.');
 
-        return $this->hotelRepository->getAverage($hotelId);
+        return (float)$this->hotelRepository->getAverage($hotelId);
     }
 }
