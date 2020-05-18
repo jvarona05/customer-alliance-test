@@ -23,9 +23,10 @@ class WidgetController extends AbstractController
     /**
      * @Route("/widget/{uuid}", name="widget_html")
      */
-    public function htmlWidget(Hotel $hotel)
+    public function htmlWidget(Hotel $hotel, Request $request)
     {
         return $this->render('widget/hotel.html.twig', [
+            'domain' => $request->getSchemeAndHttpHost(),
             'hotel' => $hotel,
         ]);
     }

@@ -5,26 +5,35 @@
 	<link rel="stylesheet" href="{{ asset('asset/widget.css') }}">
 </head>
 <body>
-	<h1>{{ hotel.name }} - Customer Alliance</h1>
-	<p>Rate:<span id="average"></span></p>
-	<ul id="reviews"></ul>
-	<button id="load-more-reviews-btn">Load More</button>	
+	<div class="container">
+		<h1>{{ hotel.name }} - Customer Alliance</h1>
+		<p>Rate:<span id="average"></span></p>
+		<div class="reviews-container">
+			<ul id="reviews"></ul>
+			<button id="load-more-reviews-btn">Load More</button>
+		</div>	
+	</div>	
+	
 
 	<script type="text/javascript">
 		var currentReviewPage = 1;
 
-		document.getElementById('load-more-reviews-btn').addEventListener('click', function (event) {
-			loadReviews()
-		}, false);
+		initWidget()
 
-		function ajaxReques(url, payload)
+		function initWidget()
+		{
+			loadAverage()
+			loadReviews()
+		}	
+
+		function ajaxReques(url, callback)
 		{
 			var xhr = new XMLHttpRequest();
 
 			xhr.onload = function () {
 				if (xhr.status >= 200 && xhr.status < 300) {
 					response = JSON.parse(xhr.response)
-					payload(response)
+					callback(response)
 				} else {
 					console.log('The request failed!');
 				}
@@ -35,36 +44,36 @@
 			xhr.send();
 		}
 
-		function renderReviewList(reviews)
-		{
-			var html = ''
+		document.getElementById('load-more-reviews-btn').addEventListener('click', function () {
+			loadReviews()
+		}, false);
 
+		function addReviewsToReviewList(reviews)
+		{
+			var HTML = ''
 			for (let i = 0; i < reviews.length; i++)
 			{
-				html += `<li>${reviews[i].score} - ${reviews[i].comment}</li>`
+				HTML += `<li>${reviews[i].score} - ${reviews[i].comment}</li>`
 			}
 
 			reviewList = document.getElementById('reviews')
 
-			reviewList.innerHTML = reviewList.innerHTML + html;
+			reviewList.innerHTML = reviewList.innerHTML + HTML;
 		}
 
 		function loadAverage()
 		{
-			ajaxReques('http://localhost/api/v1/hotels/{{ hotel.uuid }}/average', function(response){
+			ajaxReques('{{ domain }}/api/v1/hotels/{{ hotel.uuid }}/average', function(response){
 				document.getElementById('average').textContent = response.average;
 			})
 		}
 
 		function loadReviews(){
-			ajaxReques('http://localhost/api/v1/hotels/{{ hotel.uuid }}/reviews?page=' + currentReviewPage, function(response){
-				renderReviewList(response);
+			ajaxReques('{{ domain }}/api/v1/hotels/{{ hotel.uuid }}/reviews?page=' + currentReviewPage, function(response){
+				addReviewsToReviewList(response);
 				currentReviewPage++;
 			})	
-		}
-
-		loadAverage()
-		loadReviews()			
+		}	
 	</script>
 </body>
 </html>
