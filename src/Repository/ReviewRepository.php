@@ -5,7 +5,7 @@ namespace App\Repository;
 use App\Entity\Review;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
-
+use Doctrine\ORM\QueryBuilder;
 /**
  * @method Review|null find($id, $lockMode = null, $lockVersion = null)
  * @method Review|null findOneBy(array $criteria, array $orderBy = null)
@@ -19,15 +19,15 @@ class ReviewRepository extends ServiceEntityRepository
         parent::__construct($registry, Review::class);
     }
 
-    public function getReviews(int $countryId)
+    public function getReviewsQueryBuilder(int $hotelId) : QueryBuilder
     {
         $query = $this->createQueryBuilder('r');
 
-        if(!$countryId){
-            $query->andWhere('h.hotel = :hotelId')
+        if(isset($hotelId)){
+            $query->andWhere('r.hotel = :hotelId')
                 ->setParameter('hotelId', $hotelId);
         }
         
-        return $query->getQuery()->getResult();
+        return $query;
     }
 }

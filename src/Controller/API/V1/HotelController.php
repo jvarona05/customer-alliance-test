@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Services\HotelService;
 use App\Entity\HotelChain;
-use App\Entity\Review;
 use App\Entity\Hotel;
 
 /**
@@ -41,10 +40,9 @@ class HotelController extends AbstractController
     /**
      * @Route("reviews", name="api_get_review_list")
      */
-    public function getReviews(Request $request)
+    public function getReviews(Request $request, HotelService $hotelService)
     {
-        $reviews = $this->getDoctrine()->getRepository(Review::class)
-            ->getReviews($request->get('hotelId'));
+        $reviews = $hotelService->getReviews($request);
 
         return new JsonResponse($reviews);
     }
