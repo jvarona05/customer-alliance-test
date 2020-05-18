@@ -5,10 +5,8 @@ namespace App\Controller\API\V1;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Services\HotelService;
-use App\Entity\HotelChain;
 use App\Entity\Hotel;
 
 /**
@@ -16,6 +14,13 @@ use App\Entity\Hotel;
  */
 class HotelController extends AbstractController
 {
+    private $hotelService;
+
+    public function __construct(HotelService $hotelService)
+    {
+        $this->hotelService = $hotelService;
+    }
+
     /**
      * @Route("", name="api_get_hotel_list")
      */
@@ -30,9 +35,11 @@ class HotelController extends AbstractController
      * NOTE poner que el url sea /{id}/average
      * @Route("average", name="api_get_hotel_average")
      */
-    public function getAverage(Request $request, HotelService $hotelService)
+    public function getAverage(Request $request)
     {
-        $average = $hotelService->getAverage($request->get('hotelId'));
+        $average = $this->hotelService->getAverage(
+            $request->get('hotelId')
+        );
 
         return new JsonResponse(compact('average'));
     }
@@ -40,9 +47,9 @@ class HotelController extends AbstractController
     /**
      * @Route("reviews", name="api_get_review_list")
      */
-    public function getReviews(Request $request, HotelService $hotelService)
+    public function getReviews(Request $request)
     {
-        $reviews = $hotelService->getReviews($request);
+        $reviews = $this->hotelService->getReviews($request);
 
         return new JsonResponse($reviews);
     }
