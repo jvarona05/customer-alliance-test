@@ -10,26 +10,25 @@ use App\Services\Paginator;
 
 class HotelService
 {
-    private $em;
-
     private $paginator;
 
-    private $hotelRepository;
+    private $em;    
 
     public function __construct(EntityManagerInterface $em, Paginator $paginator) 
     {
-        $this->em = $em;
         $this->paginator = $paginator;
+
+        $this->em = $em;
     }
 
-    public function getAverage(int $hotelId) : float
+    public function getAverage(string $hotelUuid) : float
     {
         $hotelRepository = $this->em->getRepository(Hotel::class); 
 
-        if (!$hotelRepository->find($hotelId)) 
+        if (!$hotelRepository->findOneBy(['uuid' => $hotelUuid])) 
             throw new \Exception('Hotel not found.');
 
-        return (float)$hotelRepository->getAverage($hotelId);
+        return (float)$hotelRepository->getAverage($hotelUuid);
     }
 
     public function getReviews(Request $request) : array

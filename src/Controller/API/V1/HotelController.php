@@ -33,12 +33,12 @@ class HotelController extends AbstractController
 
     /**
      * NOTE poner que el url sea /{id}/average
-     * @Route("average", name="api_get_hotel_average")
+     * @Route("{uuid}/average", name="api_get_hotel_average")
      */
     public function getAverage(Request $request)
     {
         $average = $this->hotelService->getAverage(
-            $request->get('hotelId')
+            $request->get('uuid')
         );
 
         return new JsonResponse(compact('average'));
