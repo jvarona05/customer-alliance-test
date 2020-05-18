@@ -7,12 +7,16 @@
 <body>
 	<h1>{{ hotel.name }} - Customer Alliance</h1>
 	<p>Rate:<span id="average"></span></p>
-	<ul id="reviews">
-		<li></li>
-		<li></li>
-	</ul>	
+	<ul id="reviews"></ul>
+	<button id="load-more-reviews-btn">Load More</button>	
 
 	<script type="text/javascript">
+		var currentReviewPage = 1;
+
+		document.getElementById('load-more-reviews-btn').addEventListener('click', function (event) {
+			loadReviews()
+		}, false);
+
 		function ajaxReques(url, payload)
 		{
 			var xhr = new XMLHttpRequest();
@@ -31,7 +35,8 @@
 			xhr.send();
 		}
 
-		function renderReviewList(reviews){
+		function renderReviewList(reviews)
+		{
 			var html = ''
 
 			for (let i = 0; i < reviews.length; i++)
@@ -39,17 +44,27 @@
 				html += `<li>${reviews[i].score} - ${reviews[i].comment}</li>`
 			}
 
-			document.getElementById('reviews').innerHTML = html
+			reviewList = document.getElementById('reviews')
+
+			reviewList.innerHTML = reviewList.innerHTML + html;
 		}
 
-		ajaxReques('http://localhost/api/v1/hotels/{{ hotel.uuid }}/average', function(response){
-			document.getElementById('average').textContent = response.average;
-		})
+		function loadAverage()
+		{
+			ajaxReques('http://localhost/api/v1/hotels/{{ hotel.uuid }}/average', function(response){
+				document.getElementById('average').textContent = response.average;
+			})
+		}
 
-		ajaxReques('http://localhost/api/v1/hotels/{{ hotel.uuid }}/reviews', function(response){
-			console.log(response)
-			renderReviewList(response);
-		})		
+		function loadReviews(){
+			ajaxReques('http://localhost/api/v1/hotels/{{ hotel.uuid }}/reviews?page=' + currentReviewPage, function(response){
+				renderReviewList(response);
+				currentReviewPage++;
+			})	
+		}
+
+		loadAverage()
+		loadReviews()			
 	</script>
 </body>
 </html>
