@@ -25,7 +25,7 @@ class HotelService
     {
         $query = $this->em->getRepository(Review::class)->getReviewsQueryBuilder($hotel);
         $currentPage = $request->get('page', 1);
-        $pageSize = 2;
+        $pageSize = 5;
         
         $paginator = $this->paginator->paginate($query, $currentPage, $pageSize);
         
