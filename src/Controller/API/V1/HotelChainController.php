@@ -23,4 +23,14 @@ class HotelChainController extends AbstractController
     {
         return new JsonResponse($hotelChain);
     }
+
+    /**
+     * @Route("{id}/hotels", name="api_get_hotels_from_hotel_chain")
+     */
+    public function getHotels(HotelChain $hotelChain)
+    {
+        $hotels = $hotelChain->getHotels()->getValues();
+
+        return new JsonResponse($hotels);
+    }
 }
