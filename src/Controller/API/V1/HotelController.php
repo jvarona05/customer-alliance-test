@@ -3,35 +3,36 @@
 namespace App\Controller\API\V1;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Hotel;
-use App\Entity\Review;
-use App\Entity\HotelChain;
-use App\Services\HotelService;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use App\Services\HotelService;
+use App\Entity\HotelChain;
+use App\Entity\Review;
+use App\Entity\Hotel;
 
 /**
  * @Route("/hotels/")
  */
 class HotelController extends AbstractController
 {
-    private $hotelService;
-
-    public function __construct(HotelService $hotelService)
+    /**
+     * @Route("", name="api_get_hotel_list")
+     */
+    public function getHotels(Request $request)
     {
-        $this->hotelService = $hotelService;
+        $hotels = $this->getDoctrine()->getRepository(Hotel::class)->findAll();
+
+        return new JsonResponse($hotels);
     }
 
     /**
      * @Route("average", name="api_get_hotel_average")
      */
-    public function getAverage(Request $request)
+    public function getAverage(Request $request, HotelService $hotelService)
     {
-        $average = $this->hotelService->getAverage(
-            $request->get('hotelId')
-        );
+        $average = $hotelService->getAverage($request->get('hotelId'));
 
         return new JsonResponse(compact('average'));
     }
@@ -42,18 +43,8 @@ class HotelController extends AbstractController
     public function getReviews(Request $request)
     {
         $reviews = $this->getDoctrine()->getRepository(Review::class)
-                    ->getReviews($request->get('hotelId'));
+            ->getReviews($request->get('hotelId'));
 
         return new JsonResponse($reviews);
-    }
-
-    /**
-     * @Route("", name="api_get_hotel_list")
-     */
-    public function getHotels(Request $request)
-    {
-        $hotels = $this->getDoctrine()->getRepository(Hotel::class)->findAll();
-
-        return new JsonResponse($hotels);
     }
 }
