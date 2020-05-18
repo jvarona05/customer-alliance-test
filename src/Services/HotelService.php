@@ -32,18 +32,18 @@ class HotelService
         $paginator = $this->paginator->paginate($query, $currentPage, $pageSize);
         
         $reviews = [];
-        foreach ($paginator as $pageItem) {
+        foreach ($paginator as $review) {
             $reviews[] = [
-                'id' => $pageItem->getId(),
-                'score' => $pageItem->getScore(),
-                'comment' => $pageItem->getComment()
+                'id' => $review->getId(),
+                'score' => $review->getScore(),
+                'comment' => $review->getComment()
             ];
         }
 
         return $reviews;
     }
 
-    public function getAverage(Hotel $hotel)
+    public function getAverage(Hotel $hotel) : float
     {
         $cache = new FilesystemAdapter();
 
