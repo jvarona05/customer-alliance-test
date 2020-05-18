@@ -12,7 +12,7 @@ class WidgetController extends AbstractController
     /**
      * @Route("/widget/{uuid}.js", name="widget_js")
      */
-    public function asset(Hotel $hotel, Request $request)
+    public function jsWidget(Hotel $hotel, Request $request)
     {
         return $this->render('widget/hotel.js.twig', [
             'domain' => $request->getSchemeAndHttpHost(),
@@ -23,7 +23,7 @@ class WidgetController extends AbstractController
     /**
      * @Route("/widget/{uuid}", name="widget_html")
      */
-    public function index(Hotel $hotel)
+    public function htmlWidget(Hotel $hotel)
     {
         return $this->render('widget/hotel.html.twig', [
             'hotel' => $hotel,
