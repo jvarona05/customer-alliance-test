@@ -15,7 +15,7 @@ class WidgetController extends AbstractController
     public function asset(Hotel $hotel, Request $request)
     {
         return $this->render('widget/hotel.js.twig', [
-            'domain' => $request->getHost(),
+            'domain' => $request->getSchemeAndHttpHost(),
             'hotelUuid' => $hotel->getUuid(),
         ]);
     }
