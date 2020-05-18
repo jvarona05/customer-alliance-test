@@ -32,24 +32,21 @@ class HotelController extends AbstractController
     }
 
     /**
-     * NOTE poner que el url sea /{id}/average
      * @Route("{uuid}/average", name="api_get_hotel_average")
      */
-    public function getAverage(Request $request)
+    public function getAverage(Hotel $hotel)
     {
-        $average = $this->hotelService->getAverage(
-            $request->get('uuid')
-        );
+        $this->getDoctrine()->getRepository(Hotel::class)->getAverage($hotel); 
 
         return new JsonResponse(compact('average'));
     }
 
     /**
-     * @Route("reviews", name="api_get_review_list")
+     * @Route("{uuid}/reviews", name="api_get_review_list")
      */
-    public function getReviews(Request $request)
+    public function getReviews(Hotel $hotel, Request $request)
     {
-        $reviews = $this->hotelService->getReviews($request);
+        $reviews = $this->hotelService->getReviews($hotel, $request);
 
         return new JsonResponse($reviews);
     }

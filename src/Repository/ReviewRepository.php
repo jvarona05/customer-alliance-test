@@ -2,10 +2,12 @@
 
 namespace App\Repository;
 
-use App\Entity\Review;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
+use App\Entity\Review;
+use App\Entity\Hotel;
+
 /**
  * @method Review|null find($id, $lockMode = null, $lockVersion = null)
  * @method Review|null findOneBy(array $criteria, array $orderBy = null)
@@ -19,14 +21,22 @@ class ReviewRepository extends ServiceEntityRepository
         parent::__construct($registry, Review::class);
     }
 
-    public function getReviewsQueryBuilder(int $hotelId) : QueryBuilder
+    public function getAverage(Hotel $hotel)
     {
-        $query = $this->createQueryBuilder('r');
+        $query = $this->createQueryBuilder('r')
+            ->select("avg(r.score) as avg")
+            ->andWhere('r.hotel = :hotel')
+            ->setParameter('hotel', $hotel);
+        
+        return $query->getQuery()->getSingleScalarResult();
+    }
 
-        if(isset($hotelId)){
-            $query->andWhere('r.hotel = :hotelId')
-                ->setParameter('hotelId', $hotelId);
-        }
+    public function getReviewsQueryBuilder(Hotel $hotel) : QueryBuilder
+    {
+        $query = $this->createQueryBuilder('r')
+            ->andWhere('r.hotel = :hotel')
+            ->setParameter('hotel', $hotel);
+
         
         return $query;
     }

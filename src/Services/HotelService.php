@@ -4,9 +4,9 @@ namespace App\Services;
 
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Entity\Hotel;
-use App\Entity\Review;
 use App\Services\Paginator;
+use App\Entity\Review;
+use App\Entity\Hotel;
 
 class HotelService
 {
@@ -21,26 +21,13 @@ class HotelService
         $this->em = $em;
     }
 
-    public function getAverage(string $hotelUuid) : float
+    public function getReviews(Hotel $hotel, Request $request) : array
     {
-        $hotelRepository = $this->em->getRepository(Hotel::class); 
-
-        if (!$hotelRepository->findOneBy(['uuid' => $hotelUuid])) 
-            throw new \Exception('Hotel not found.');
-
-        return (float)$hotelRepository->getAverage($hotelUuid);
-    }
-
-    public function getReviews(Request $request) : array
-    {
-        $reviewsQueryBuilder = $this->em->getRepository(Review::class)
-            ->getReviewsQueryBuilder($request->get('hotelId'));
+        $query = $this->em->getRepository(Review::class)->getReviewsQueryBuilder($hotel);
+        $currentPage = $request->get('pager', 1);
+        $pageSize = 2;
         
-        $paginator = $this->paginator->paginate(
-            $reviewsQueryBuilder, 
-            $request->get('page', 1), 
-            2
-        );
+        $paginator = $this->paginator->paginate($query, $currentPage, $pageSize);
         
         $reviews = [];
         foreach ($paginator as $pageItem) {
