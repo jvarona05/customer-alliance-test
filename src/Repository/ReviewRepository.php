@@ -21,14 +21,16 @@ class ReviewRepository extends ServiceEntityRepository
         parent::__construct($registry, Review::class);
     }
 
-    public function getAverage(Hotel $hotel)
+    public function getAverage(Hotel $hotel) : float
     {
         $query = $this->createQueryBuilder('r')
             ->select("avg(r.score) as avg")
             ->andWhere('r.hotel = :hotel')
             ->setParameter('hotel', $hotel);
         
-        return $query->getQuery()->getSingleScalarResult();
+        $average = $query->getQuery()->getSingleScalarResult();
+
+        return (float) $average;
     }
 
     public function getReviewsQueryBuilder(Hotel $hotel) : QueryBuilder

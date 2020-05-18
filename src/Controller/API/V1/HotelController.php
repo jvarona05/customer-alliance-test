@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Services\HotelService;
+use App\Entity\Review;
 use App\Entity\Hotel;
 
 /**
@@ -36,7 +37,8 @@ class HotelController extends AbstractController
      */
     public function getAverage(Hotel $hotel)
     {
-        $this->getDoctrine()->getRepository(Hotel::class)->getAverage($hotel); 
+        $average = $this->getDoctrine()->getRepository(Review::class)
+            ->getAverage($hotel); 
 
         return new JsonResponse(compact('average'));
     }

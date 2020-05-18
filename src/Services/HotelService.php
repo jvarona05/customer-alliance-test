@@ -24,7 +24,7 @@ class HotelService
     public function getReviews(Hotel $hotel, Request $request) : array
     {
         $query = $this->em->getRepository(Review::class)->getReviewsQueryBuilder($hotel);
-        $currentPage = $request->get('pager', 1);
+        $currentPage = $request->get('page', 1);
         $pageSize = 2;
         
         $paginator = $this->paginator->paginate($query, $currentPage, $pageSize);
