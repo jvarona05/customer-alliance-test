@@ -5,7 +5,7 @@
 	<link rel="stylesheet" href="{{ asset('asset/widget.css') }}">
 </head>
 <body>
-	<h1>Customer Alliance</h1>
+	<h1>{{ hotel.name }} - Customer Alliance</h1>
 	<p>Rate:<span id="average"></span></p>
 	<ul id="reviews">
 		<li></li>
@@ -42,11 +42,11 @@
 			document.getElementById('reviews').innerHTML = html
 		}
 
-		ajaxReques('http://localhost/api/v1/hotels/average?hotelId=1', function(response){
+		ajaxReques('http://localhost/api/v1/hotels/{{ hotel.uuid }}/average', function(response){
 			document.getElementById('average').textContent = response.average;
 		})
 
-		ajaxReques('http://localhost/api/v1/hotels/reviews?hotelId=1', function(response){
+		ajaxReques('http://localhost/api/v1/hotels/{{ hotel.uuid }}/reviews', function(response){
 			console.log(response)
 			renderReviewList(response);
 		})

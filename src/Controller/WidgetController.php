@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Hotel;
 
 class WidgetController extends AbstractController
@@ -11,10 +12,10 @@ class WidgetController extends AbstractController
     /**
      * @Route("/widget/{uuid}.js", name="widget_js")
      */
-    public function asset(Hotel $hotel)
+    public function asset(Hotel $hotel, Request $request)
     {
         return $this->render('widget/hotel.js.twig', [
-            'domain' => 'http://localhost',
+            'domain' => $request->getHost(),
             'hotelUuid' => $hotel->getUuid(),
         ]);
     }
