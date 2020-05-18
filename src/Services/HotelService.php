@@ -20,15 +20,16 @@ class HotelService
     {
         $this->em = $em;
         $this->paginator = $paginator;
-        $this->hotelRepository = $em->getRepository(Hotel::class);    
     }
 
-    public function getAverage(int $hotelId)
+    public function getAverage(int $hotelId) : float
     {
-        if (!$this->hotelRepository->find($hotelId)) 
+        $hotelRepository = $this->em->getRepository(Hotel::class); 
+
+        if (!$hotelRepository->find($hotelId)) 
             throw new \Exception('Hotel not found.');
 
-        return (float)$this->hotelRepository->getAverage($hotelId);
+        return (float)$hotelRepository->getAverage($hotelId);
     }
 
     public function getReviews(Request $request) : array
