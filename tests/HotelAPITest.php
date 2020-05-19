@@ -51,9 +51,12 @@ class HotelAPITest extends WebTestCase
 
     public function testGetHotels()
     {
-        $this->client->request('GET', '/api/v1/hotels');
+        $this->client->request('GET', '/api/v1/hotels/');
 
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $this->assertEquals('[{"id":"1","name":"Hotel Alexanderplatz","address":"Alexanderplatz 1, 10409, Berlin"},{"id":"2","name":"Hotel Alexanderplatz","address":"Alexanderplatz 1, 10409, Berlin"},{"id":"3","name":"Hotel Alexanderplatz","address":"Alexanderplatz 1, 10409, Berlin"},{"id":"4","name":"Hotel Alexanderplatz","address":"Alexanderplatz 1, 10409, Berlin"},{"id":"5","name":"Hotel Alexanderplatz","address":"Alexanderplatz 1, 10409, Berlin"}]', $this->client->getResponse()->getContent());
+        
+        $hotels = json_decode($this->client->getResponse()->getContent());
+        
+        $this->assertCount(5, $hotels);
     }
 }
