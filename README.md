@@ -8,17 +8,15 @@ Test to demonstrate skills and mastery in PHP.
 
 ## Requirements
 
--We need to improve the code quality by adopting the SOLID principles and/or other best practices.
--Chain hotels are not defined currently. We need to implement that.
--Registered Hotels should be able to embed an html/javascript widget in their website.
+1. We need to improve the code quality by adopting the SOLID principles and/or other best practices.
+2. Chain hotels are not defined currently. We need to implement that.
+3. Registered Hotels should be able to embed an html/javascript widget in their website.
   The widget should show an average score of all their review scores.
   The widget could consume the average API, that we are providing. The Hotel can potentially have thousands of reviews, so keep that in mind for performance considerations.
--Currently the average API is using hotelId, but Hotel entity should be identified by a UUID and have a relation to its Reviews.
--The visual design of the widget is not important. It can be just a centered bold white number on blue background. The size should be 100x100px and it should be positioned fixed on the bottom right corner of the screen.
--The hotelier should be able to embed their widget by simply pasting a snippet like this before the closing </body> tag of their website:`<script src="http://host-of-the-app/widget/{{UUID}}.js"></script>`Where {{UUID}} is the uuid of the Hotel. To keep this task simple we are not generating other hashes or access keys for using this widget but simply stick to the UUID.
-  
-The script which is served as the response should inject an iframe into the DOM of the hotel's website with size & position described above that will contain the widget's html with the styles mentioned above. For best compatibility with other scripts on the website & minimal size it should use Vanilla JS (plain JS) to inject the iframe and not rely on jQuery or any framework. 
--The response can be cached by clients for up to 1 hour.
+4. Currently the average API is using hotelId, but Hotel entity should be identified by a UUID and have a relation to its Reviews.
+5. The visual design of the widget is not important. It can be just a centered bold white number on blue background. The size should be 100x100px and it should be positioned fixed on the bottom right corner of the screen.
+6. The hotelier should be able to embed their widget by simply pasting a snippet like this before the closing </body> tag of their website:`<script src="http://host-of-the-app/widget/{{UUID}}.js"></script>`Where {{UUID}} is the uuid of the Hotel. To keep this task simple we are not generating other hashes or access keys for using this widget but simply stick to the UUID.
+7. The response can be cached by clients for up to 1 hour.
 
 ## Installation
 
