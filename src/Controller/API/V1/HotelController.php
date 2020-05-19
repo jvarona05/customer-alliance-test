@@ -81,6 +81,13 @@ class HotelController extends AbstractController
      * 
      * @SWG\Tag(name="Hotels")
      * 
+     * @SWG\Parameter(
+     *     name="page",
+     *     in="query",
+     *     type="string",
+     *     description="The current page in the pagination"
+     * )
+     * 
      * @SWG\Response(
      *     response=200,
      *     description="Returns an array of hotel reviews"
