@@ -23,7 +23,7 @@ class HotelController extends AbstractController
     }
 
     /**
-     * @Route("", name="api_get_hotel_list")
+     * @Route("", methods={"GET"}, name="api_get_hotel_list")
      */
     public function getHotels(Request $request)
     {
@@ -33,7 +33,7 @@ class HotelController extends AbstractController
     }
 
     /**
-     * @Route("{uuid}/average", name="api_get_hotel_average")
+     * @Route("{uuid}/average", methods={"GET"}, name="api_get_hotel_average")
      */
     public function getAverage(Hotel $hotel)
     {
@@ -43,7 +43,7 @@ class HotelController extends AbstractController
     }
 
     /**
-     * @Route("{uuid}/reviews", name="api_get_review_list")
+     * @Route("{uuid}/reviews", methods={"GET"}, name="api_get_review_list")
      */
     public function getReviews(Hotel $hotel, Request $request)
     {

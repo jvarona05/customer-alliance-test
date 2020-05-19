@@ -17,7 +17,7 @@ use App\Entity\Hotel;
 class HotelChainController extends AbstractController
 {
     /**
-     * @Route("{id}", name="api_get_hotel_chain")
+     * @Route("{id}", methods={"GET"}, name="api_get_hotel_chain")
      */
     public function getHotelChain(HotelChain $hotelChain)
     {
@@ -25,7 +25,7 @@ class HotelChainController extends AbstractController
     }
 
     /**
-     * @Route("{id}/hotels", name="api_get_hotels_from_hotel_chain")
+     * @Route("{id}/hotels", methods={"GET"}, name="api_get_hotels_from_hotel_chain")
      */
     public function getHotels(HotelChain $hotelChain)
     {
