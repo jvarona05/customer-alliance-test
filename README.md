@@ -1,4 +1,4 @@
-<p align="center"><img src="https://go.customer-alliance.com/build/images/logo.png?75938931" width="400"></p>
+<p align="center"><img src="https://go.customer-alliance.com/build/images/logo.png?75938931" width="250"></p>
 
 # Customer Alliance PHP Technical
 
