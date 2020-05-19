@@ -57,8 +57,6 @@ docker exec -ti laradock_workspace_1 composer install
 docker exec -ti laradock_workspace_1 php bin/console d:s:u --force
 
 docker exec -ti laradock_workspace_1 php bin/console doctrine:fixtures:load
-
-docker exec -ti laradock_workspace_1 php bin/phpunit
 ```
 
 ### Open the proyect
