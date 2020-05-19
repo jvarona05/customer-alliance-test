@@ -4,7 +4,7 @@
 
 Test to demonstrate skills and mastery in PHP. 
 
-[API Documentation](https://jvarona05.github.io/customer-alliance-test/public/docs/).
+[API Documentation](https://jvarona05.github.io/customer-alliance-test/public/api.html).
 
 ## Requirements
 
